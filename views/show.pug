@@ -5,41 +5,42 @@ append head
   link(rel="stylesheet", href="/stylesheets/star.css")
 include utils
 block content
-  div(class="showInfo")
-    div(class="showImage")
-      img(src=show.imageURL class="img")
-      if user
-        +stars(show.id, rating[show.id])
-        select(name="showShelves" class="showShelfSelect")
-          each shelf in shelves
-            option(value=shelf.id class="showShelfOption" )= shelf.title
-        button(type="click" class="addToShowShelfBtn" value = user.id id=show.id) Add to Shelf
-    div(class="showText")
-      div(class="showTitle")
-        h1= show.title
-      div(class="showRelease")
-        h2 Number of seasons: #{show.numberOfSeasons}
-        h3 Year released: #{show.yearReleased}
-      div(class="showSynopsis")
-        p= show.synopsis
-      div(class='container-ratings' id=show.id)
-        p(id='rating')= avgRating
-          span &nbsp;avg. Rating
-    div(class="videoPreview")
-    iframe(width="420" height="300" src=show.youtubeVideoURL  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
-  div(class="showReviews")
-    h1 ShowMe Reviews
-    div
-      if user
-        if !userReview
-          a(href=`/shows/${show.id}/reviews`) Write a review?
-      else
-        a(href='/users/signup') Sign up to review!
-    each review in reviews
-      div(id=review.showId class="reviews")
-        h3=review.title
-        p=review.comment
-        h4 -#{review.User.fullName}
-        if user  && user.id  === review.userId
-          button(class="delete-review" id=review.id) Delete
-          button(class="edit-review" id=review.id) Edit
+  div(class="total-show")
+    div(class="showInfo")
+      div(class="showImage")
+        img(src=show.imageURL class="img")
+        if user
+          +stars(show.id, rating[show.id])
+          select(name="showShelves" class="showShelfSelect")
+            each shelf in shelves
+              option(value=shelf.id class="showShelfOption" )= shelf.title
+          button(type="click" class="addToShowShelfBtn" value = user.id id=show.id) Add to Shelf
+      div(class="showText")
+        div(class="showTitle")
+          h1= show.title
+        div(class="showRelease")
+          h2 Number of seasons: #{show.numberOfSeasons}
+          h3 Year released: #{show.yearReleased}
+        div(class="showSynopsis")
+          p= show.synopsis
+        div(class='container-ratings' id=show.id)
+          p(id='rating')= avgRating
+            span &nbsp;avg. Rating
+      div(class="videoPreview")
+      iframe(width="420" height="300" src=show.youtubeVideoURL  frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen)
+    div(class="showReviews")
+      h1 ShowMe Reviews
+      div
+        if user
+          if !userReview
+            a(href=`/shows/${show.id}/reviews`) Write a review?
+        else
+          a(href='/users/signup') Sign up to review!
+      each review in reviews
+        div(id=review.showId class="reviews")
+          h3=review.title
+          p=review.comment
+          h4 -#{review.User.fullName}
+          if user  && user.id  === review.userId
+            button(class="delete-review" id=review.id) Delete
+            button(class="edit-review" id=review.id) Edit

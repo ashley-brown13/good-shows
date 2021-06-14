@@ -87,3 +87,7 @@ footer {
     bottom:0;
     width:100%;   /* Height of the footer */
  }
+
+ .total-show {
+   min-height: 100vh;
+ }
